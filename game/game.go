@@ -7,9 +7,12 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
+var rmap = [GridSize][GridSize]int{}
+var tmap = [GridSize][GridSize]int{}
+
 type Game struct {
-	RawMap   [GridSize][GridSize]int
-	TileMap  [GridSize][GridSize]int
+	RawMap   *[GridSize][GridSize]int
+	TileMap  *[GridSize][GridSize]int
 	Rooms    []Room
 	Ticks    int
 	Money    int
@@ -17,7 +20,10 @@ type Game struct {
 }
 
 func NewGame() *Game {
-	g := &Game{}
+	g := &Game{
+		RawMap:  &rmap,
+		TileMap: &tmap,
+	}
 	rooms := GenerateMapAndRooms(DefaultConfig(), g.RawMap)
 	BuildTileMap(g.RawMap, g.TileMap)
 	g.Renderer = renderer.NewRenderer() // 初始化渲染器

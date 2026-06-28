@@ -19,7 +19,7 @@ var fallbackTileID = [16]int{
 }
 
 // getTile 安全地讀取地圖格子值，超出邊界視為牆壁（1）。
-func getTile(m [GridSize][GridSize]int, x, y int) int {
+func getTile(m *[GridSize][GridSize]int, x, y int) int {
 	if y < 0 || y >= len(m) || x < 0 || x >= len(m[0]) {
 		return 1
 	}
@@ -28,7 +28,7 @@ func getTile(m [GridSize][GridSize]int, x, y int) int {
 
 // wallTileID 根據八方向鄰居計算該格子應使用的 tile ID。
 // 若該格子是地板（0）則回傳 0（不繪製）。
-func wallTileID(m [GridSize][GridSize]int, x, y int) int {
+func wallTileID(m *[GridSize][GridSize]int, x, y int) int {
 	if getTile(m, x, y) == 0 {
 		return 0
 	}
@@ -111,7 +111,7 @@ func wallTileID(m [GridSize][GridSize]int, x, y int) int {
 
 // Build 將原始地圖轉換成 tile ID 地圖。
 // 回傳的二維陣列與輸入等大，每格存放對應的 tile ID。
-func BuildTileMap(rawMap [GridSize][GridSize]int, tileMap [GridSize][GridSize]int) {
+func BuildTileMap(rawMap *[GridSize][GridSize]int, tileMap *[GridSize][GridSize]int) {
 	for y := 0; y < GridSize; y++ {
 		for x := 0; x < GridSize; x++ {
 			tileMap[y][x] = wallTileID(rawMap, x, y)

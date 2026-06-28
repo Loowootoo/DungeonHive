@@ -6,11 +6,14 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
-func (r *Renderer) DrawMapLayer(m [cf.GridSize][cf.GridSize]int) {
+func (r *Renderer) DrawMapLayer(m *[cf.GridSize][cf.GridSize]int) {
 	op := &ebiten.DrawImageOptions{}
 	for y := 0; y < cf.GridSize; y++ {
 		for x := 0; x < cf.GridSize; x++ {
 			tilesID := m[y][x]
+			if tilesID == 0 {
+				continue
+			}
 			tx := tilesID % cf.TileSetCol
 			ty := tilesID / cf.TileSetCol
 			dX, dY := float64(x*cf.TileSize), float64(y*cf.TileSize)

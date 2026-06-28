@@ -7,7 +7,7 @@ import (
 
 // ConnectRooms 用 Prim MST 決定房間連接順序，
 // 再對每對房間呼叫 A* 挖出 1 格寬通道。
-func ConnectRooms(m [GridSize][GridSize]int, rooms []Room) {
+func ConnectRooms(m *[GridSize][GridSize]int, rooms []Room) {
 	if len(rooms) == 0 {
 		return
 	}
@@ -56,7 +56,7 @@ func primNextEdge(rooms []Room, connected []bool) (int, int) {
 }
 
 // carveCorridor 以 A* 找路並逐格挖開，形成 1 格寬通道。
-func carveCorridor(m [GridSize][GridSize]int, mapW, mapH int, start, end Point, r1, r2 Room) {
+func carveCorridor(m *[GridSize][GridSize]int, mapW, mapH int, start, end Point, r1, r2 Room) {
 	costFn := makeCostFn(m, mapW, mapH, r1, r2)
 	path := utils.Search(start, end, costFn)
 	if path == nil {
@@ -73,7 +73,7 @@ func carveCorridor(m [GridSize][GridSize]int, mapW, mapH int, start, end Point, 
 //   - 3x3 範圍內碰到其他房間的地板 → 代價 100（高代價繞道）
 //   - 走既有通道        → 代價 1
 //   - 挖新牆壁          → 代價 2
-func makeCostFn(m [GridSize][GridSize]int, mapW, mapH int, r1, r2 Room) utils.CostFunc {
+func makeCostFn(m *[GridSize][GridSize]int, mapW, mapH int, r1, r2 Room) utils.CostFunc {
 	return func(next Point) int {
 		// 邊界：留 2 格緩衝避免緊貼地圖邊緣
 		if next.X < 2 || next.X >= mapW-2 || next.Y < 2 || next.Y >= mapH-2 {
@@ -95,7 +95,7 @@ func makeCostFn(m [GridSize][GridSize]int, mapW, mapH int, r1, r2 Room) utils.Co
 // neighbourForbidden 掃描 (next) 周圍 3x3 格，
 // 若發現不屬於 r1/r2 的地板則回傳 true。
 // 這確保通道不會緊貼其他房間，autotile 才能正確顯示牆壁分隔。
-func neighbourForbidden(m [GridSize][GridSize]int, mapW, mapH int, next Point, r1, r2 Room) bool {
+func neighbourForbidden(m *[GridSize][GridSize]int, mapW, mapH int, next Point, r1, r2 Room) bool {
 	for ty := next.Y - 1; ty <= next.Y+1; ty++ {
 		for tx := next.X - 1; tx <= next.X+1; tx++ {
 			if ty < 0 || ty >= mapH || tx < 0 || tx >= mapW {

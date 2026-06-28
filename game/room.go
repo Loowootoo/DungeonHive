@@ -33,7 +33,7 @@ func overlaps(a, b Room, padding int) bool {
 // PlaceRooms 在 mapW×mapH 的地圖上隨機放置房間，
 // 並將房間所在格子設為 0（地板），其餘保持 1（牆壁）。
 // 回傳成功放置的 []Room 與初始化後的地圖。
-func PlaceRooms(rng *rand.Rand, minRooms, maxRooms int, roomMin, roomMax int, padding int, gmap [GridSize][GridSize]int) []Room {
+func PlaceRooms(rng *rand.Rand, minRooms, maxRooms int, roomMin, roomMax int, padding int, gmap *[GridSize][GridSize]int) []Room {
 	// 初始化全牆地圖
 	makeWallMap(gmap)
 	target := minRooms + rng.Intn(maxRooms-minRooms+1)
@@ -69,7 +69,7 @@ func PlaceRooms(rng *rand.Rand, minRooms, maxRooms int, roomMin, roomMax int, pa
 
 // ---- 私有輔助函式 ----
 
-func makeWallMap(gmap [GridSize][GridSize]int) {
+func makeWallMap(gmap *[GridSize][GridSize]int) {
 	for y := 0; y < GridSize; y++ {
 		for x := 0; x < GridSize; x++ {
 			gmap[y][x] = 1
@@ -86,7 +86,7 @@ func hasOverlap(candidate Room, rooms []Room, padding int) bool {
 	return false
 }
 
-func carveRoom(m [GridSize][GridSize]int, r Room) {
+func carveRoom(m *[GridSize][GridSize]int, r Room) {
 	for dy := 0; dy < r.H; dy++ {
 		for dx := 0; dx < r.W; dx++ {
 			m[r.Y+dy][r.X+dx] = 0

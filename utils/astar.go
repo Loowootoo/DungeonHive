@@ -70,7 +70,7 @@ func Search(start, end Point, costFn CostFunc) []Point {
 		priority: heuristic(start, end),
 	})
 
-	dirs := []Point{{X: 0, Y: -1}, {X: 1, Y: 0}, {X: 0, Y: -1}, {X: -1, Y: 0}}
+	dirs := []Point{{X: 0, Y: -1}, {X: 1, Y: 0}, {X: 0, Y: 1}, {X: -1, Y: 0}}
 
 	for pq.Len() > 0 {
 		curr := heap.Pop(&pq).(*item).point

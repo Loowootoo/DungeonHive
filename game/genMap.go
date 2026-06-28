@@ -26,7 +26,7 @@ func DefaultConfig() Config {
 
 // Generate 產生一張完整的隨機地牢原始地圖（0=地板，1=牆壁）。
 // 同時回傳成功放置的房間列表，供 player 重生點等用途。
-func GenerateMapAndRooms(cf Config, gmap [GridSize][GridSize]int) []Room {
+func GenerateMapAndRooms(cf Config, gmap *[GridSize][GridSize]int) []Room {
 	rng := rand.New(rand.NewSource(time.Now().UnixNano()))
 	rooms := PlaceRooms(
 		rng,
