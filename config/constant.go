@@ -23,3 +23,11 @@ type Point struct {
 }
 
 type TileType int
+type DirType int
+
+const (
+	DirUP    DirType = 0
+	DirDOWN  DirType = 1
+	DirLEFT  DirType = 2
+	DirRIGHT DirType = 3
+)

@@ -10,7 +10,7 @@ import (
 func main() {
 	g := game.NewGame()
 	ebiten.SetWindowTitle("DungeonHive")
-	ebiten.SetWindowSize(1280, 720)
+	ebiten.SetWindowSize(960, 960)
 	if err := ebiten.RunGame(g); err != nil {
 		log.Fatal(err)
 	}
