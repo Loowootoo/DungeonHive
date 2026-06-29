@@ -15,7 +15,7 @@ type Renderer struct {
 func NewRenderer() *Renderer {
 	renderer := &Renderer{}
 	renderer.ResMan = NewResourceManager()
-	renderer.Camera = NewCamera(float64(cf.ScreenWidth/2), float64(cf.ScreenHeight/2), 1.0)
+	renderer.Camera = NewCamera(float64(cf.ScreenWidth/2), float64(cf.ScreenHeight/2), 2.0)
 	renderer.MapLayer = ebiten.NewImage(cf.ScreenWidth, cf.ScreenHeight)
 
 	return renderer

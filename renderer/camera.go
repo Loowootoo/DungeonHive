@@ -43,22 +43,6 @@ func (c *Camera) ZoomAt(screenX, screenY, factor float64) {
 	c.Y = worldY - (screenY-halfH)/c.Zoom
 }
 func (c *Camera) Update() {
-	// 捕捉鍵盤控制 (WASD 移動)
-	speed := 4.0
-	if ebiten.IsKeyPressed(ebiten.KeyW) {
-		c.Y -= speed
-	}
-	if ebiten.IsKeyPressed(ebiten.KeyS) {
-		c.Y += speed
-	}
-	if ebiten.IsKeyPressed(ebiten.KeyA) {
-		c.X -= speed
-	}
-	if ebiten.IsKeyPressed(ebiten.KeyD) {
-		c.X += speed
-	}
-
-	// 捕捉鍵盤縮放 (Q/E)
 	if ebiten.IsKeyPressed(ebiten.KeyE) {
 		factor := 1.05
 		mx, my := ebiten.CursorPosition()
